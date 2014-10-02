@@ -65,9 +65,13 @@ class BotFactory(protocol.ClientFactory):
 
 def reload_guts(ignored, fp, mask):
     if fp == filepath.FilePath('guts.py'):
-        reload(guts)
-        if bot:
-            bot.say(channel, 'brain transplant complete.')
+        try:
+            reload(guts)
+            if bot:
+                bot.say(channel, 'brain transplant complete.')
+        except Exception as e:
+            if bot:
+                bot.say(channel, 'brain transplant failed. behavior may be erratic.')
 
 
 if __name__ == '__main__':
